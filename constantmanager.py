@@ -36,4 +36,4 @@ PREDICT_JSON = "predict_json"
 PREDICT_COLUMN = "Intensity"
 
 #Folder particular proyect 
-FOLDER_PROYECT = "/home/combios/Desktop/TM/TM proyect"
+FOLDER_PROYECT = "/home/cpulido/TM_proyect/"

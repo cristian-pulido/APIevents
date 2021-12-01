@@ -64,7 +64,7 @@ def makecleandata(data):
         return Exception("Error in funcion makecleandata")
 
 def testuploddata():
-    xls = pd.ExcelFile('/home/combios/Desktop/TM/TM proyect/TM cases and logs.xlsx')
+    xls = pd.ExcelFile('/home/cpulido/TM_proyect/TM cases and logs.xlsx')
     events = pd.read_excel(xls, 'CaseLog')
     data,data_polygons,log = makecleandata(events)
     uploadCleanData(data)

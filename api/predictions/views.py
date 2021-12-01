@@ -78,7 +78,7 @@ def Prediction_detail(request, query):
             dict_params[split[0]]=split[1]
             dict_params_to_get["parameters__"+split[0]]=split[1]
         try:
-            prediction = Prediction.objects.get(**dict_params_to_get)
+            prediction = Prediction.objects.filter(**dict_params_to_get)
         except:
             prediction=testpredict(dict_params)
             
