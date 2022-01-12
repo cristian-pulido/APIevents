@@ -87,7 +87,7 @@ def Prediction_detail(request, query):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = PredictionSerializer(prediction)
+        serializer = PredictionSerializer(prediction,many=True)
         return JSONResponse(serializer.data)
 
     elif request.method == 'PUT':
