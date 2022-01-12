@@ -1,8 +1,8 @@
 #!/bin/bash
-WORKING_DIR=/home/cpulido/TM/APIevents/api
-ACTIVATE_PATH=activate tmenv
+WORKING_DIR=/home/cpulido/TM/APIevents/api/
+ACTIVATE_PATH=/home/cpulido/.virtualenvs/tmenv/bin/activate
 cd ${WORKING_DIR}
-eval "$(conda activate tmenv)"
+. ${ACTIVATE_PATH}
 exec $@
 
 
