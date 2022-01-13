@@ -84,7 +84,7 @@ def testpredict(parameters):
     events=events.rename(columns={i:map_columns[i] for i in events.columns})
     predict_gpd=do_predict(events,gdf,"746",50000,50000)
     
-    
+    parameters["crs_data"]=CRS_GRID_DATA
     parameters= json.loads(json.dumps(parameters,indent=4))
     json_predict=json.loads(predict_gpd.to_json())
     P=Prediction.objects.get_or_create(parameters=parameters,predict_json=json_predict)

@@ -8,6 +8,9 @@ from predictions.models import Prediction, Cleanevent
 from predictions.serializers import PredictionSerializer, EventsSerializer
 from api.utils_api import names_to_representation, testpredict
 
+
+
+
 class JSONResponse(HttpResponse):
     """
     An HttpResponse that renders its content into JSON.
@@ -22,7 +25,8 @@ class JSONResponse(HttpResponse):
 def events_list(request):
     """
     List all code serie, or create a new serie.
-    """
+    """    
+    
     if request.method == 'GET':
         events = Cleanevent.objects.all()
         serializer = EventsSerializer(events, many=True)
@@ -77,19 +81,27 @@ def Prediction_detail(request, query):
             split=i.split(":")
             dict_params[split[0]]=split[1]
             dict_params_to_get["parameters__"+split[0]]=split[1]
-        try:
-            prediction = Prediction.objects.filter(**dict_params_to_get)
-        except:
+        
+        prediction = Prediction.objects.filter(**dict_params_to_get)
+        len_=len(prediction)
+        if len_==1:
+            prediction=prediction[0]
+        if  len_ == 0:
             prediction=testpredict(dict_params)
-            
+            len_=1
+        #    prediction = Prediction.objects.filter(**dict_params_to_get)
+        
+
         
     except Prediction.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = PredictionSerializer(prediction,many=True)
+        if len_ > 1:
+            serializer = PredictionSerializer(prediction,many=True)
+        else:
+            serializer = PredictionSerializer(prediction)
         return JSONResponse(serializer.data)
-
     elif request.method == 'PUT':
         # data = JSONParser().parse(request)
         # serializer = PredictionSerializer(serie, data=data)
@@ -100,9 +112,9 @@ def Prediction_detail(request, query):
         return HttpResponse(status=400)
 
     elif request.method == 'DELETE':
-        #serie.delete()
-        #return HttpResponse(status=204)
-        return HttpResponse(status=400)
+        prediction.delete()
+        return HttpResponse(status=204)
+        #return HttpResponse(status=400)
     
 @csrf_exempt
 def Events_detail(request, query):

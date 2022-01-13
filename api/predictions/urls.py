@@ -1,6 +1,9 @@
 #from django.conf.urls import url
-from django.urls import path
+
+from django.urls import path, include
 from predictions import views
+
+
 
 
 urlpatterns = [
@@ -8,4 +11,5 @@ urlpatterns = [
     path('events/', views.events_list),
     path('predictions/<str:query>/', views.Prediction_detail),
     path('events/<str:query>/', views.Events_detail),
+    
 ]
